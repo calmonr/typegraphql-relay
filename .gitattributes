@@ -1,1 +1,3 @@
 yarn.lock merge=binary
+.lintstagedrc linguist-language=json
+.huskyrc linguist-language=json

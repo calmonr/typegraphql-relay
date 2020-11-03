@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    ".lintstagedrc": "json",
+    ".huskyrc": "json"
+  }
+}
