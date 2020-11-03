@@ -2,6 +2,20 @@
 
 import consola from 'consola'
 
-const { APPLICATION_NAME } = process.env
+import expressLoader from './loaders/express.loader'
 
-consola.success(APPLICATION_NAME)
+const { APPLICATION_NAME, SERVER_HOSTNAME, SERVER_PORT } = process.env
+
+const bootstrap = async () => {
+  const application = expressLoader()
+
+  application.listen({ hostname: SERVER_HOSTNAME, port: SERVER_PORT }, () => {
+    consola.info(APPLICATION_NAME)
+
+    consola.success(
+      `The server is running at http://${SERVER_HOSTNAME}:${SERVER_PORT}`
+    )
+  })
+}
+
+bootstrap()
