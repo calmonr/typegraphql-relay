@@ -6,7 +6,7 @@ import {
   useContainer
 } from 'typeorm'
 
-import { Product } from '../modules/product/product.entity'
+import { ProductEntity } from '../modules/product/product.entity'
 
 const {
   DATABASE_HOST,
@@ -25,7 +25,7 @@ const options: ConnectionOptions = {
   type: 'postgres',
   synchronize: true,
   logging: true,
-  entities: [Product]
+  entities: [ProductEntity]
 }
 
 export default (): Promise<Connection> => {
