@@ -1,6 +1,7 @@
 {
   "files.associations": {
     ".lintstagedrc": "json",
-    ".huskyrc": "json"
+    ".huskyrc": "json",
+    ".env.defaults": "dotenv"
   }
 }
