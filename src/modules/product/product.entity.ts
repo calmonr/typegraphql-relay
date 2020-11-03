@@ -8,12 +8,13 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
+import { NodeInterface } from '../relay/node.interface'
+
 @Entity('products')
-@ObjectType('Product')
-export class ProductEntity extends BaseEntity {
+@ObjectType('Product', { implements: NodeInterface })
+export class ProductEntity extends NodeInterface {
   @PrimaryGeneratedColumn()
-  @Field(() => ID)
-  id!: number
+  readonly id!: number
 
   @Column()
   @Field()

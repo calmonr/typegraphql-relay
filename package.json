@@ -28,6 +28,7 @@
     "dotenv-defaults": "^2.0.1",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
+    "graphql-relay": "^0.6.0",
     "pg": "^8.4.2",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^1.1.0",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.8",
+    "@types/graphql-relay": "^0.6.0",
     "@types/node": "^14.14.6",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",

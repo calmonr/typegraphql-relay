@@ -3,18 +3,18 @@ import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { ProductEntity } from './product.entity'
-import { ProductInput } from './product.input'
+import { AddProductInput } from './product.input'
 
 @Service()
 export class ProductService {
   @InjectRepository(ProductEntity)
-  private repository!: Repository<ProductEntity>
+  private readonly repository!: Repository<ProductEntity>
 
-  async all(): Promise<Array<ProductEntity>> {
-    return this.repository.find()
+  async findById(id: string): Promise<ProductEntity | undefined> {
+    return this.repository.findOne(id)
   }
 
-  async add({ name, description }: ProductInput): Promise<ProductEntity> {
+  async add({ name, description }: AddProductInput): Promise<ProductEntity> {
     return this.repository.save({ name, description })
   }
 }
