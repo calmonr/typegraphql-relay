@@ -1,19 +1,30 @@
-import { Arg, Mutation, Query, Resolver } from 'type-graphql'
+import { Arg, Args, Mutation, Query, Resolver } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { ProductEntity } from './product.entity'
-import { AddProductInput } from './product.input'
+import { AddProductInput } from './inputs/product.input'
 import { ProductService } from './product.service'
+import { ProductConnection } from './product.connection'
+import { ConnectionArgs } from '../../relay/connection.args'
+import { AddProductPayload } from './payloads/add-product.payload'
 
 @Resolver()
 export class ProductResolver {
   @Inject()
   private service!: ProductService
 
-  @Mutation(() => ProductEntity)
+  @Query(() => ProductConnection)
+  async products(@Args() args: ConnectionArgs): Promise<ProductConnection> {
+    return this.service.paginate(args)
+  }
+
+  @Mutation(() => AddProductPayload)
   async addProduct(
     @Arg('input') input: AddProductInput
-  ): Promise<ProductEntity> {
-    return this.service.add(input)
+  ): Promise<AddProductPayload> {
+    const product = await this.service.add(input)
+
+    return {
+      product: product || null
+    }
   }
 }

@@ -3,12 +3,19 @@ import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { ProductEntity } from './product.entity'
-import { AddProductInput } from './product.input'
+import { AddProductInput } from './inputs/product.input'
+import { ConnectionArguments } from 'graphql-relay'
+import { ProductConnection } from './product.connection'
+import { connectionFromRepository } from '../../relay/connection.factory'
 
 @Service()
 export class ProductService {
   @InjectRepository(ProductEntity)
   private readonly repository!: Repository<ProductEntity>
+
+  async paginate(args: ConnectionArguments): Promise<ProductConnection> {
+    return connectionFromRepository(args, this.repository)
+  }
 
   async findById(id: string): Promise<ProductEntity | undefined> {
     return this.repository.findOne(id)

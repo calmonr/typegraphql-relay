@@ -8,7 +8,8 @@ const { GRAPHQL_PATH } = process.env
 export default async (app: Express): Promise<void> => {
   const schema = await buildSchema({
     resolvers: [`${__dirname}/../modules/**/*.resolver.{ts,js}`],
-    container: Container
+    container: Container,
+    emitSchemaFile: true
   })
 
   const apolloServer = new ApolloServer({
