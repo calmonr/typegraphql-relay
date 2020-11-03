@@ -1,12 +1,16 @@
 /// <reference path="../typings/env.d.ts" />
 
+import 'reflect-metadata'
 import consola from 'consola'
 
+import databaseLoader from './loaders/database.loader'
 import expressLoader from './loaders/express.loader'
 
 const { APPLICATION_NAME, SERVER_HOSTNAME, SERVER_PORT } = process.env
 
 const bootstrap = async () => {
+  await databaseLoader()
+
   const application = expressLoader()
 
   application.listen({ hostname: SERVER_HOSTNAME, port: SERVER_PORT }, () => {
