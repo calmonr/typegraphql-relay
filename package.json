@@ -22,11 +22,15 @@
   },
   "homepage": "https://github.com/calmonr/typegraphql-relay#readme",
   "dependencies": {
+    "apollo-server-express": "^2.19.0",
+    "class-validator": "^0.12.2",
     "consola": "^2.15.0",
     "dotenv-defaults": "^2.0.1",
     "express": "^4.17.1",
+    "graphql": "^15.4.0",
     "pg": "^8.4.2",
     "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.0",
     "typedi": "^0.8.0",
     "typeorm": "^0.2.29"
   },

@@ -5,6 +5,7 @@ import consola from 'consola'
 
 import databaseLoader from './loaders/database.loader'
 import expressLoader from './loaders/express.loader'
+import gqlLoader from './loaders/gql.loader'
 
 const { APPLICATION_NAME, SERVER_HOSTNAME, SERVER_PORT } = process.env
 
@@ -12,6 +13,8 @@ const bootstrap = async () => {
   await databaseLoader()
 
   const application = expressLoader()
+
+  gqlLoader(application)
 
   application.listen({ hostname: SERVER_HOSTNAME, port: SERVER_PORT }, () => {
     consola.info(APPLICATION_NAME)
