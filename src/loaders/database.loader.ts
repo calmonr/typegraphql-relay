@@ -1,4 +1,10 @@
-import { Connection, ConnectionOptions, createConnection } from 'typeorm'
+import { Container } from 'typedi'
+import {
+  Connection,
+  ConnectionOptions,
+  createConnection,
+  useContainer
+} from 'typeorm'
 
 import { Product } from '../modules/product/product.entity'
 
@@ -23,5 +29,7 @@ const options: ConnectionOptions = {
 }
 
 export default (): Promise<Connection> => {
+  useContainer(Container)
+
   return createConnection(options)
 }
