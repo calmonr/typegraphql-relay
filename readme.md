@@ -49,7 +49,7 @@ Congratulations, the server is running. 🚀
 The most important parts are implemented and working properly but we have room for improvements.
 
 - [ ] Ordering
-- [ ] Filtering
+- [X] Filtering
 - [ ] Custom arguments example
 - [ ] Error handling
 - [ ] DataLoader
@@ -186,6 +186,31 @@ Backward with cursor
 ```graphql
 {
   products(last: 2, before: "YXJyYXljb25uZWN0aW9uOjg=") {
+    edges {
+      node {
+        id
+        name
+        description
+        createdAt
+        updatedAt
+      }
+      cursor
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasPreviousPage
+      hasNextPage
+    }
+  }
+}
+```
+
+With Filter
+
+```graphql
+{
+  products(last: 2, name: "Something") {
     edges {
       node {
         id

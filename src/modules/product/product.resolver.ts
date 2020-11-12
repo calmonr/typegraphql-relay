@@ -13,8 +13,14 @@ export class ProductResolver {
   private service!: ProductService
 
   @Query(() => ProductConnection)
-  async products(@Args() args: ConnectionArgs): Promise<ProductConnection> {
-    return this.service.paginate(args)
+  async products(
+    @Args() args: ConnectionArgs,
+    @Arg('name', () => String, { nullable: true }) product_name: string
+  ): Promise<ProductConnection> {
+    return this.service.paginate(
+      args,
+      product_name ? { name: product_name } : undefined
+    )
   }
 
   @Mutation(() => AddProductPayload)

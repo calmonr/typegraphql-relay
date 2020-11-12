@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import { Repository } from 'typeorm'
+import { FindConditions, Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { ProductEntity } from './product.entity'
@@ -13,8 +13,11 @@ export class ProductService {
   @InjectRepository(ProductEntity)
   private readonly repository!: Repository<ProductEntity>
 
-  async paginate(args: ConnectionArguments): Promise<ProductConnection> {
-    return connectionFromRepository(args, this.repository)
+  async paginate(
+    args: ConnectionArguments,
+    filter?: FindConditions<ProductEntity>
+  ): Promise<ProductConnection> {
+    return connectionFromRepository(args, this.repository, filter)
   }
 
   async findById(id: string): Promise<ProductEntity | undefined> {
