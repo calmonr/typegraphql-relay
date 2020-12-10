@@ -4,7 +4,7 @@
   "description": "Relay-compliant GraphQL server using TypeGraphQL.",
   "scripts": {
     "lint": "eslint */**/*.{js,ts} --quiet --fix",
-    "start:dev": "tsnd -r dotenv-defaults/config --respawn --transpile-only src",
+    "start:dev": "NODE_ENV=development tsnd -r dotenv-flow/config --respawn --transpile-only src",
     "test:watch": "jest --watch"
   },
   "repository": {
@@ -26,7 +26,7 @@
     "apollo-server-express": "^2.19.0",
     "class-validator": "^0.12.2",
     "consola": "^2.15.0",
-    "dotenv-defaults": "^2.0.1",
+    "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "graphql-relay": "^0.6.0",

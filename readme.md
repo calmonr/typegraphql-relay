@@ -48,9 +48,9 @@ Congratulations, the server is running. 🚀
 
 The most important parts are implemented and working properly but we have room for improvements.
 
+- [x] Tests
 - [ ] Ordering
 - [ ] Filtering
-- [ ] Custom arguments example
 - [ ] Error handling
 - [ ] DataLoader
 
