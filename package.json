@@ -2,6 +2,10 @@
   "private": true,
   "name": "typegraphql-relay",
   "description": "Relay-compliant GraphQL server using TypeGraphQL.",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=14.15.1"
+  },
   "scripts": {
     "lint": "eslint */**/*.{js,ts} --quiet --fix",
     "start:dev": "NODE_ENV=development tsnd -r dotenv-flow/config --respawn --transpile-only src",
