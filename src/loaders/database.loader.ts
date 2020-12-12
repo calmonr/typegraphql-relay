@@ -9,6 +9,7 @@ import {
 import { ProductEntity } from '../modules/product/product.entity'
 
 const {
+  NODE_ENV,
   DATABASE_HOST,
   DATABASE_PORT,
   DATABASE_USERNAME,
@@ -24,7 +25,7 @@ const options: ConnectionOptions = {
   database: DATABASE_NAME,
   type: 'postgres',
   synchronize: true,
-  logging: true,
+  logging: NODE_ENV === 'development',
   entities: [ProductEntity]
 }
 
