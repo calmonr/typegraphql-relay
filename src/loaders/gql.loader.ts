@@ -3,13 +3,13 @@ import { Express } from 'express'
 import { buildSchema } from 'type-graphql'
 import Container from 'typedi'
 
-const { GRAPHQL_PATH } = process.env
+const { NODE_ENV, GRAPHQL_PATH } = process.env
 
 export default async (app: Express): Promise<void> => {
   const schema = await buildSchema({
     resolvers: [`${__dirname}/../modules/**/*.resolver.{ts,js}`],
     container: Container,
-    emitSchemaFile: true
+    emitSchemaFile: NODE_ENV === 'development'
   })
 
   const apolloServer = new ApolloServer({
