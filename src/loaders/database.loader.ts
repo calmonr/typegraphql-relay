@@ -6,10 +6,10 @@ import {
   useContainer
 } from 'typeorm'
 
+import { isDevelopment } from '../utils'
 import { ProductEntity } from '../modules/product/product.entity'
 
 const {
-  NODE_ENV,
   DATABASE_HOST,
   DATABASE_PORT,
   DATABASE_USERNAME,
@@ -25,7 +25,7 @@ const options: ConnectionOptions = {
   database: DATABASE_NAME,
   type: 'postgres',
   synchronize: true,
-  logging: NODE_ENV === 'development',
+  logging: isDevelopment,
   entities: [ProductEntity]
 }
 
