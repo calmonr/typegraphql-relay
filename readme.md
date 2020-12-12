@@ -53,6 +53,7 @@ The most important parts are implemented and working properly but we have room f
 - [ ] Filtering
 - [ ] Error handling
 - [ ] DataLoader
+- [ ] Production ready
 
 Feel free to send suggestions and pull requests.
 

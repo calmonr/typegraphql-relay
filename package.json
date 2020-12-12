@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint */**/*.{js,ts} --quiet --fix",
     "start:dev": "NODE_ENV=development tsnd -r dotenv-flow/config --respawn --transpile-only src",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --runInBand --watch"
   },
   "repository": {
     "type": "git",

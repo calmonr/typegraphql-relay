@@ -7,5 +7,5 @@ export default {
   setupFiles: ['dotenv-flow/config'],
   setupFilesAfterEnv: ['jest-extended'],
   testEnvironment: 'node',
-  testMatch: ['**/functional/**/*.ts', '**/unit/**/*.ts']
+  testMatch: ['**/functional/**/*.test.ts', '**/unit/**/*.test.ts']
 }
