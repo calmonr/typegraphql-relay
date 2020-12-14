@@ -1,10 +1,10 @@
 import { Service } from 'typedi'
 import { Repository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
+import { ConnectionArguments } from 'graphql-relay'
 
 import { ProductEntity } from './product.entity'
 import { AddProductInput } from './inputs/product.input'
-import { ConnectionArguments } from 'graphql-relay'
 import { ProductConnection } from './product.connection'
 import { connectionFromRepository } from '../../relay/connection.factory'
 
