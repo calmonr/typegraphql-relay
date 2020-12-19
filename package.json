@@ -2,9 +2,16 @@
   "private": true,
   "name": "typegraphql-relay",
   "description": "Relay-compliant GraphQL server using TypeGraphQL.",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=14.15.1"
+  },
   "scripts": {
     "lint": "eslint */**/*.{js,ts} --quiet --fix",
-    "start:dev": "tsnd -r dotenv-defaults/config --respawn --transpile-only src"
+    "start:dev": "NODE_ENV=development tsnd -r dotenv-flow/config --respawn --transpile-only src",
+    "test:watch": "jest --runInBand --watch",
+    "docker:up:dev": "docker-compose --env-file .env.development.local -p gql-development up -d",
+    "docker:up:test": "docker-compose --env-file .env.test.local -p gql-test up -d"
   },
   "repository": {
     "type": "git",
@@ -16,7 +23,7 @@
     "relay"
   ],
   "author": "Calmon Ribeiro <calmonrib@gmail.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/calmonr/typegraphql-relay/issues"
   },
@@ -25,7 +32,7 @@
     "apollo-server-express": "^2.19.0",
     "class-validator": "^0.12.2",
     "consola": "^2.15.0",
-    "dotenv-defaults": "^2.0.1",
+    "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "graphql-relay": "^0.6.0",
@@ -39,6 +46,7 @@
   "devDependencies": {
     "@types/express": "^4.17.8",
     "@types/graphql-relay": "^0.6.0",
+    "@types/jest": "^26.0.18",
     "@types/node": "^14.14.6",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
@@ -46,8 +54,11 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
+    "jest": "^26.6.3",
+    "jest-extended": "^0.11.5",
     "lint-staged": "^10.5.1",
     "prettier": "^2.1.2",
+    "ts-jest": "^26.4.4",
     "ts-node-dev": "^1.0.0",
     "typescript": "^4.0.5"
   }

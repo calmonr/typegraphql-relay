@@ -6,7 +6,7 @@ import {
   useContainer
 } from 'typeorm'
 
-import { ProductEntity } from '../modules/product/product.entity'
+import { isDevelopment } from '../utils'
 
 const {
   DATABASE_HOST,
@@ -16,20 +16,23 @@ const {
   DATABASE_NAME
 } = process.env
 
-const options: ConnectionOptions = {
-  host: DATABASE_HOST,
-  port: DATABASE_PORT,
-  username: DATABASE_USERNAME,
-  password: DATABASE_PASSWORD,
-  database: DATABASE_NAME,
-  type: 'postgres',
-  synchronize: true,
-  logging: true,
-  entities: [ProductEntity]
-}
+export default (options?: Partial<ConnectionOptions>): Promise<Connection> => {
+  const defined: ConnectionOptions = {
+    host: DATABASE_HOST,
+    port: DATABASE_PORT,
+    username: DATABASE_USERNAME,
+    password: DATABASE_PASSWORD,
+    database: DATABASE_NAME,
+    type: 'postgres',
+    synchronize: isDevelopment,
+    logging: isDevelopment,
+    entities: [`${__dirname}/../modules/**/*.entity.{ts,js}`]
+  }
 
-export default (): Promise<Connection> => {
   useContainer(Container)
 
-  return createConnection(options)
+  return createConnection({
+    ...defined,
+    ...options
+  } as ConnectionOptions)
 }

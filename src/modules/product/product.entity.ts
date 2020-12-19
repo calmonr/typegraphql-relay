@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from 'type-graphql'
+import { Field, ObjectType } from 'type-graphql'
 import {
   Column,
   CreateDateColumn,
@@ -7,11 +7,11 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
-import { NodeInterface } from '../relay/node.interface'
+import { Node } from '../../relay/node.interface'
 
 @Entity('products')
-@ObjectType('Product', { implements: NodeInterface })
-export class ProductEntity extends NodeInterface {
+@ObjectType({ implements: Node })
+export class Product extends Node {
   @PrimaryGeneratedColumn()
   readonly id!: number
 

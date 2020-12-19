@@ -4,7 +4,7 @@ import { Inject } from 'typedi'
 import { AddProductInput } from './inputs/product.input'
 import { ProductService } from './product.service'
 import { ProductConnection } from './product.connection'
-import { ConnectionArgs } from '../../relay/connection.args'
+import { ConnectionArguments } from '../../relay/connection.args'
 import { AddProductPayload } from './payloads/add-product.payload'
 
 @Resolver()
@@ -13,7 +13,9 @@ export class ProductResolver {
   private service!: ProductService
 
   @Query(() => ProductConnection)
-  async products(@Args() args: ConnectionArgs): Promise<ProductConnection> {
+  async products(
+    @Args() args: ConnectionArguments
+  ): Promise<ProductConnection> {
     return this.service.paginate(args)
   }
 

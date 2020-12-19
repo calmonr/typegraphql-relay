@@ -11,10 +11,10 @@ import {
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { ProductService } from '../product/product.service'
-import { NodeInterface } from './node.interface'
+import { ProductService } from '../modules/product/product.service'
+import { Node } from './node.interface'
 
-@Resolver(() => NodeInterface)
+@Resolver(() => Node)
 export class NodeResolver {
   @Inject()
   private readonly productService!: ProductService
@@ -29,7 +29,7 @@ export class NodeResolver {
 
   // TODO: use dataloader
   // TODO: find a better way to automate and avoid if conditions
-  @Query(() => NodeInterface, {
+  @Query(() => Node, {
     nullable: true,
     description: 'Fetches an object given its global ID.'
   })
@@ -38,7 +38,7 @@ export class NodeResolver {
       description: 'The global ID of the object.'
     })
     globalId: string
-  ): Promise<NodeInterface | undefined> {
+  ): Promise<Node | undefined> {
     const { type, id } = fromGlobalId(globalId)
 
     if (type == 'Product') {
@@ -50,7 +50,7 @@ export class NodeResolver {
     )
   }
 
-  @Query(() => [NodeInterface], {
+  @Query(() => [Node], {
     nullable: 'items',
     description: 'Fetches objects given their global IDs.'
   })
