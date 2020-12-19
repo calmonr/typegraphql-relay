@@ -21,7 +21,7 @@
     "relay"
   ],
   "author": "Calmon Ribeiro <calmonrib@gmail.com>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/calmonr/typegraphql-relay/issues"
   },
