@@ -9,7 +9,9 @@
   "scripts": {
     "lint": "eslint */**/*.{js,ts} --quiet --fix",
     "start:dev": "NODE_ENV=development tsnd -r dotenv-flow/config --respawn --transpile-only src",
-    "test:watch": "jest --runInBand --watch"
+    "test:watch": "jest --runInBand --watch",
+    "docker:up:dev": "docker-compose --env-file .env.development.local -p gql-development up -d",
+    "docker:up:test": "docker-compose --env-file .env.test.local -p gql-test up -d"
   },
   "repository": {
     "type": "git",
