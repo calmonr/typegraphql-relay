@@ -5,7 +5,7 @@ import { Connection } from 'typeorm'
 
 import databaseLoader from '../../../src/loaders/database.loader'
 import { createSchema } from '../../../src/loaders/gql.loader'
-import { UserEntity } from './module/user.entity'
+import { User } from './module/user.entity'
 import { UserResolver } from './module/user.resolver'
 import { UserService } from './module/user.service'
 
@@ -42,7 +42,7 @@ describe('connection', () => {
     })
 
     database = await databaseLoader({
-      entities: [UserEntity]
+      entities: [User]
     })
 
     service = Container.get(UserService)

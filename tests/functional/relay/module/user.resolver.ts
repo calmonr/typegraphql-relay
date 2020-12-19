@@ -1,7 +1,7 @@
 import { Arg, Args, Mutation, Query, Resolver } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { ConnectionArgs } from '../../../../src/relay/connection.args'
+import { ConnectionArguments } from '../../../../src/relay/connection.args'
 import { AddUserInput } from './inputs/user.input'
 import { AddUserPayload } from './payloads/add-user.payload'
 import { UserConnection } from './user.connection'
@@ -13,7 +13,7 @@ export class UserResolver {
   private readonly service!: UserService
 
   @Query(() => UserConnection)
-  async users(@Args() args: ConnectionArgs): Promise<UserConnection> {
+  async users(@Args() args: ConnectionArguments): Promise<UserConnection> {
     return this.service.paginate(args)
   }
 

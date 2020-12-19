@@ -2,8 +2,8 @@ import { Field, ObjectType } from 'type-graphql'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('users')
-@ObjectType('User')
-export class UserEntity {
+@ObjectType()
+export class User {
   @PrimaryGeneratedColumn()
   readonly id!: number
 

@@ -1,12 +1,15 @@
 import { Max, Min } from 'class-validator'
-import { ConnectionArguments, ConnectionCursor } from 'graphql-relay'
+import {
+  ConnectionArguments as RelayConnectionArguments,
+  ConnectionCursor
+} from 'graphql-relay'
 import { ArgsType, Field, Int } from 'type-graphql'
 
 import { CannotWith } from '../validators/cannot-with.validator'
 
 // TODO: validate must provide at least first or last
 @ArgsType()
-export class ConnectionArgs implements ConnectionArguments {
+export class ConnectionArguments implements RelayConnectionArguments {
   @Field(() => String, {
     nullable: true,
     description:

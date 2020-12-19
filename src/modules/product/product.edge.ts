@@ -1,5 +1,5 @@
 import { EdgeType } from '../../decorators/relay/edge.type'
-import { ProductEntity } from './product.entity'
+import { Product } from './product.entity'
 
-@EdgeType(ProductEntity)
+@EdgeType(Product)
 export class ProductEdge {}
