@@ -1,5 +1,7 @@
-import { ConnectionType } from '../../decorators/relay/connection.type'
+import { ObjectType } from 'type-graphql'
+
+import { ConnectionType } from '../../relay/connection.generic'
 import { ProductEdge } from './product.edge'
 
-@ConnectionType(ProductEdge)
-export class ProductConnection {}
+@ObjectType()
+export class ProductConnection extends ConnectionType(ProductEdge) {}

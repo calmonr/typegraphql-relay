@@ -8,6 +8,7 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    "@typescript-eslint/triple-slash-reference": "off"
+    "@typescript-eslint/triple-slash-reference": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }
