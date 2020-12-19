@@ -1,5 +1,7 @@
-import { EdgeType } from '../../decorators/relay/edge.type'
+import { ObjectType } from 'type-graphql'
+
+import { EdgeType } from '../../relay/edge.generic'
 import { Product } from './product.entity'
 
-@EdgeType(Product)
-export class ProductEdge {}
+@ObjectType()
+export class ProductEdge extends EdgeType(Product) {}
