@@ -11,7 +11,7 @@ import {
 } from 'type-graphql'
 import { Inject } from 'typedi'
 
-import { ProductService } from '../product/product.service'
+import { ProductService } from '../modules/product/product.service'
 import { NodeInterface } from './node.interface'
 
 @Resolver(() => NodeInterface)

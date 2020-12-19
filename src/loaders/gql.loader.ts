@@ -4,6 +4,7 @@ import { GraphQLSchema } from 'graphql'
 import { buildSchema, BuildSchemaOptions } from 'type-graphql'
 import Container from 'typedi'
 
+import { NodeResolver } from '../relay/node.resolver'
 import { isDevelopment } from '../utils'
 
 const { GRAPHQL_PATH } = process.env
@@ -12,7 +13,7 @@ export const createSchema = (
   options?: Partial<BuildSchemaOptions>
 ): Promise<GraphQLSchema> => {
   const defined = {
-    resolvers: [`${__dirname}/../modules/**/*.resolver.{ts,js}`],
+    resolvers: [NodeResolver, `${__dirname}/../modules/**/*.resolver.{ts,js}`],
     container: Container,
     emitSchemaFile: isDevelopment
   }

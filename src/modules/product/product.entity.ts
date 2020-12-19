@@ -7,7 +7,7 @@ import {
   UpdateDateColumn
 } from 'typeorm'
 
-import { NodeInterface } from '../relay/node.interface'
+import { NodeInterface } from '../../relay/node.interface'
 
 @Entity('products')
 @ObjectType('Product', { implements: NodeInterface })
