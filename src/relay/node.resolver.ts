@@ -9,15 +9,16 @@ import {
   Resolver,
   Root
 } from 'type-graphql'
-import { Inject } from 'typedi'
+import { Repository } from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { ProductService } from '../modules/product/product.service'
+import { Product } from '../modules/product/product.entity'
 import { Node } from './node.interface'
 
 @Resolver(() => Node)
 export class NodeResolver {
-  @Inject()
-  private readonly productService!: ProductService
+  @InjectRepository(Product)
+  private readonly repository!: Repository<Product>
 
   @FieldResolver()
   globalId(
@@ -42,7 +43,7 @@ export class NodeResolver {
     const { type, id } = fromGlobalId(globalId)
 
     if (type == 'Product') {
-      return this.productService.findById(id)
+      return this.repository.findOne(id)
     }
 
     throw new UserInputError(
