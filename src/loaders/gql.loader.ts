@@ -6,7 +6,6 @@ import Container from 'typedi'
 import { Connection } from 'typeorm'
 
 import { Context } from '../interfaces/context.interface'
-import { Product } from '../modules/product/product.entity'
 import { NodeResolver } from '../relay/node.resolver'
 import { isDevelopment } from '../utils'
 
@@ -15,8 +14,8 @@ const { GRAPHQL_PATH } = process.env
 export const createSchema = (
   options?: Partial<BuildSchemaOptions>
 ): Promise<GraphQLSchema> => {
-  const defined = {
-    resolvers: [NodeResolver, `${__dirname}/../modules/**/*.resolver.{ts,js}`],
+  const defined: BuildSchemaOptions = {
+    resolvers: [`${__dirname}/../{modules,relay}/**/*.resolver.{ts,js}`],
     container: Container,
     emitSchemaFile: isDevelopment
   }
@@ -32,9 +31,7 @@ export default async (app: Express, database: Connection): Promise<void> => {
 
   const context: Context = {
     database,
-    repositories: {
-      Product: database.getRepository(Product)
-    }
+    repositories: {}
   }
 
   const apolloServer = new ApolloServer({
