@@ -3,7 +3,10 @@ import { Express } from 'express'
 import { GraphQLSchema } from 'graphql'
 import { buildSchema, BuildSchemaOptions } from 'type-graphql'
 import Container from 'typedi'
+import { Connection } from 'typeorm'
 
+import { Context } from '../interfaces/context.interface'
+import { Product } from '../modules/product/product.entity'
 import { NodeResolver } from '../relay/node.resolver'
 import { isDevelopment } from '../utils'
 
@@ -24,11 +27,19 @@ export const createSchema = (
   } as BuildSchemaOptions)
 }
 
-export default async (app: Express): Promise<void> => {
+export default async (app: Express, database: Connection): Promise<void> => {
   const schema = await createSchema()
 
+  const context: Context = {
+    database,
+    repositories: {
+      Product: database.getRepository(Product)
+    }
+  }
+
   const apolloServer = new ApolloServer({
-    schema
+    schema,
+    context
   })
 
   apolloServer.applyMiddleware({ app, path: GRAPHQL_PATH })
