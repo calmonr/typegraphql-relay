@@ -56,7 +56,7 @@ describe('connection', () => {
 
   describe('pagination', () => {
     describe('forward', () => {
-      test('it should return first 2', async () => {
+      test('should return first 2', async () => {
         const user1 = await repository.save({ name: 'Calmon Ribeiro' })
         const user2 = await repository.save({ name: 'Michał Lytek' })
 
@@ -72,6 +72,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
@@ -89,7 +90,7 @@ describe('connection', () => {
         })
       })
 
-      test('it should return first 2 after cursor', async () => {
+      test('should return first 2 after cursor', async () => {
         await repository.save({ name: 'Calmon Ribeiro' })
 
         const user2 = await repository.save({ name: 'Michał Lytek' })
@@ -106,6 +107,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
@@ -125,7 +127,7 @@ describe('connection', () => {
     })
 
     describe('backward', () => {
-      test('it should return last 2', async () => {
+      test('should return last 2', async () => {
         await repository.save({ name: 'Calmon Ribeiro' })
 
         const user2 = await repository.save({ name: 'Michał Lytek' })
@@ -141,6 +143,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
@@ -158,7 +161,7 @@ describe('connection', () => {
         })
       })
 
-      test('it should return last 2 before cursor', async () => {
+      test('should return last 2 before cursor', async () => {
         const user1 = await repository.save({ name: 'Calmon Ribeiro' })
         const user2 = await repository.save({ name: 'Michał Lytek' })
 
@@ -175,6 +178,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
