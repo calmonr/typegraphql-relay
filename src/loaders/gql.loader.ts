@@ -6,7 +6,6 @@ import Container from 'typedi'
 import { Connection } from 'typeorm'
 
 import { Context } from '../interfaces/context.interface'
-import { NodeResolver } from '../relay/node.resolver'
 import { isDevelopment } from '../utils'
 
 const { GRAPHQL_PATH } = process.env
