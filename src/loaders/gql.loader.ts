@@ -3,8 +3,9 @@ import { Express } from 'express'
 import { GraphQLSchema } from 'graphql'
 import { buildSchema, BuildSchemaOptions } from 'type-graphql'
 import Container from 'typedi'
+import { Connection } from 'typeorm'
 
-import { NodeResolver } from '../relay/node.resolver'
+import { Context } from '../interfaces/context.interface'
 import { isDevelopment } from '../utils'
 
 const { GRAPHQL_PATH } = process.env
@@ -12,8 +13,8 @@ const { GRAPHQL_PATH } = process.env
 export const createSchema = (
   options?: Partial<BuildSchemaOptions>
 ): Promise<GraphQLSchema> => {
-  const defined = {
-    resolvers: [NodeResolver, `${__dirname}/../modules/**/*.resolver.{ts,js}`],
+  const defined: BuildSchemaOptions = {
+    resolvers: [`${__dirname}/../{modules,relay}/**/*.resolver.{ts,js}`],
     container: Container,
     emitSchemaFile: isDevelopment
   }
@@ -24,11 +25,17 @@ export const createSchema = (
   } as BuildSchemaOptions)
 }
 
-export default async (app: Express): Promise<void> => {
+export default async (app: Express, database: Connection): Promise<void> => {
   const schema = await createSchema()
 
+  const context: Context = {
+    database,
+    repositories: {}
+  }
+
   const apolloServer = new ApolloServer({
-    schema
+    schema,
+    context
   })
 
   apolloServer.applyMiddleware({ app, path: GRAPHQL_PATH })

@@ -1,13 +1,11 @@
 import { graphql, GraphQLSchema } from 'graphql'
 import { ConnectionCursor, offsetToCursor } from 'graphql-relay'
-import Container from 'typedi'
-import { Connection } from 'typeorm'
+import { Connection, Repository } from 'typeorm'
 
 import databaseLoader from '../../../src/loaders/database.loader'
 import { createSchema } from '../../../src/loaders/gql.loader'
 import { User } from './module/user.entity'
 import { UserResolver } from './module/user.resolver'
-import { UserService } from './module/user.service'
 
 const USERS_QUERY = `
 query users($before: String, $after: String, $first: Int, $last: Int) {
@@ -31,7 +29,7 @@ query users($before: String, $after: String, $first: Int, $last: Int) {
 describe('connection', () => {
   let schema: GraphQLSchema
   let database: Connection
-  let service: UserService
+  let repository: Repository<User>
   let cursor0: ConnectionCursor
   let cursor1: ConnectionCursor
   let cursor2: ConnectionCursor
@@ -45,7 +43,7 @@ describe('connection', () => {
       entities: [User]
     })
 
-    service = Container.get(UserService)
+    repository = database.getRepository(User)
 
     cursor0 = offsetToCursor(0)
     cursor1 = offsetToCursor(1)
@@ -58,11 +56,11 @@ describe('connection', () => {
 
   describe('pagination', () => {
     describe('forward', () => {
-      test('it should return first 2', async () => {
-        const user1 = await service.add({ name: 'Calmon Ribeiro' })
-        const user2 = await service.add({ name: 'Michał Lytek' })
+      test('should return first 2', async () => {
+        const user1 = await repository.save({ name: 'Calmon Ribeiro' })
+        const user2 = await repository.save({ name: 'Michał Lytek' })
 
-        await service.add({ name: 'Lee Byron' })
+        await repository.save({ name: 'Lee Byron' })
 
         const result = await graphql({
           schema,
@@ -74,6 +72,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
@@ -91,11 +90,11 @@ describe('connection', () => {
         })
       })
 
-      test('it should return first 2 after cursor', async () => {
-        await service.add({ name: 'Calmon Ribeiro' })
+      test('should return first 2 after cursor', async () => {
+        await repository.save({ name: 'Calmon Ribeiro' })
 
-        const user2 = await service.add({ name: 'Michał Lytek' })
-        const user3 = await service.add({ name: 'Lee Byron' })
+        const user2 = await repository.save({ name: 'Michał Lytek' })
+        const user3 = await repository.save({ name: 'Lee Byron' })
 
         const result = await graphql({
           schema,
@@ -108,6 +107,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
@@ -127,11 +127,11 @@ describe('connection', () => {
     })
 
     describe('backward', () => {
-      test('it should return last 2', async () => {
-        await service.add({ name: 'Calmon Ribeiro' })
+      test('should return last 2', async () => {
+        await repository.save({ name: 'Calmon Ribeiro' })
 
-        const user2 = await service.add({ name: 'Michał Lytek' })
-        const user3 = await service.add({ name: 'Lee Byron' })
+        const user2 = await repository.save({ name: 'Michał Lytek' })
+        const user3 = await repository.save({ name: 'Lee Byron' })
 
         const result = await graphql({
           schema,
@@ -143,6 +143,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {
@@ -160,11 +161,11 @@ describe('connection', () => {
         })
       })
 
-      test('it should return last 2 before cursor', async () => {
-        const user1 = await service.add({ name: 'Calmon Ribeiro' })
-        const user2 = await service.add({ name: 'Michał Lytek' })
+      test('should return last 2 before cursor', async () => {
+        const user1 = await repository.save({ name: 'Calmon Ribeiro' })
+        const user2 = await repository.save({ name: 'Michał Lytek' })
 
-        await service.add({ name: 'Lee Byron' })
+        await repository.save({ name: 'Lee Byron' })
 
         const result = await graphql({
           schema,
@@ -177,6 +178,7 @@ describe('connection', () => {
 
         expect(result.errors).toBeUndefined()
         expect(result.data).toBeObject()
+        expect(result.data?.users.edges).toBeArray()
         expect(result.data?.users.edges).toHaveLength(2)
         expect(result.data).toMatchObject({
           users: {

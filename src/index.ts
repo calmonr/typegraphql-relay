@@ -10,11 +10,11 @@ import gqlLoader from './loaders/gql.loader'
 const { APPLICATION_NAME, SERVER_HOSTNAME, SERVER_PORT } = process.env
 
 const bootstrap = async () => {
-  await databaseLoader()
+  const database = await databaseLoader()
 
   const application = expressLoader()
 
-  gqlLoader(application)
+  gqlLoader(application, database)
 
   application.listen({ hostname: SERVER_HOSTNAME, port: SERVER_PORT }, () => {
     consola.info(APPLICATION_NAME)

@@ -49,7 +49,7 @@ describe('mutation', () => {
       }
     })
 
-    expect(result.errors).not.toBeDefined()
+    expect(result.errors).toBeUndefined()
     expect(result.data).toBeObject()
     expect(result.data).toMatchObject({
       addUser: { user }
