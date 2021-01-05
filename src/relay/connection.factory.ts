@@ -13,14 +13,14 @@ export async function connectionFromRepository<T>(
 ): Promise<Connection<T>> {
   const { before, after, first, last } = args
 
-  const count = await repository.count()
+  const totalCount = await repository.count()
 
   // offsets
-  const beforeOffset = getOffsetWithDefault(before, count)
+  const beforeOffset = getOffsetWithDefault(before, totalCount)
   const afterOffset = getOffsetWithDefault(after, -1)
 
   let startOffset = Math.max(-1, afterOffset) + 1
-  let endOffset = Math.min(beforeOffset, count)
+  let endOffset = Math.min(beforeOffset, totalCount)
 
   if (first) {
     endOffset = Math.min(endOffset, startOffset + first)
@@ -45,7 +45,7 @@ export async function connectionFromRepository<T>(
   // page info
   const { length, 0: firstEdge, [length - 1]: lastEdge } = edges
   const lowerBound = after ? afterOffset + 1 : 0
-  const upperBound = before ? Math.min(beforeOffset, count) : count
+  const upperBound = before ? Math.min(beforeOffset, totalCount) : totalCount
 
   const pageInfo = {
     startCursor: firstEdge ? firstEdge.cursor : null,
@@ -57,6 +57,6 @@ export async function connectionFromRepository<T>(
   return {
     edges,
     pageInfo,
-    count
+    totalCount
   }
 }

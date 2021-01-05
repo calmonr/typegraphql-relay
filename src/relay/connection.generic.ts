@@ -21,9 +21,9 @@ export function ConnectionType<E extends Edge<N>, N = NodeType<E>>(
     readonly pageInfo!: PageInfo
 
     @Field({
-      description: 'Identifies the count of items in the connection.'
+      description: 'Identifies the total count of items in the connection.'
     })
-    readonly count!: number
+    readonly totalCount!: number
   }
 
   return ConnectionClass

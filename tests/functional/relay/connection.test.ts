@@ -22,7 +22,7 @@ query users($before: String, $after: String, $first: Int, $last: Int) {
       hasPreviousPage
       hasNextPage
     }
-    count
+    totalCount
   }
 }
 `
@@ -199,7 +199,7 @@ describe('connection', () => {
     })
   })
 
-  describe('count', () => {
+  describe('total count', () => {
     test('should return 0', async () => {
       const result = await graphql({
         schema,
@@ -210,7 +210,7 @@ describe('connection', () => {
       expect(result.data).toBeObject()
       expect(result.data).toMatchObject({
         users: {
-          count: 0
+          totalCount: 0
         }
       })
     })
@@ -228,7 +228,7 @@ describe('connection', () => {
       expect(result.data).toBeObject()
       expect(result.data).toMatchObject({
         users: {
-          count: 2
+          totalCount: 2
         }
       })
     })
