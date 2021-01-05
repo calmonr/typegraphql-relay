@@ -38,7 +38,7 @@ export class NodeResolver {
       )
     }
 
-    return repository.findOne(id)
+    return await repository.findOne(id)
   }
 
   // TODO: use dataloader
@@ -46,7 +46,7 @@ export class NodeResolver {
     nullable: true,
     description: 'Fetches an object given its global ID.'
   })
-  async node(
+  node(
     @Arg('id', () => ID, { description: 'The global ID of the object.' })
     globalId: string,
     @Ctx() context: Context
@@ -58,11 +58,11 @@ export class NodeResolver {
     nullable: 'items',
     description: 'Fetches objects given their global IDs.'
   })
-  async nodes(
+  nodes(
     @Arg('ids', () => [ID], { description: 'The global IDs of the objects.' })
     globalIds: Array<string>,
     @Ctx() context: Context
-  ): Promise<Array<ReturnType<NodeResolver['fetcher']>>> {
+  ): Array<ReturnType<NodeResolver['fetcher']>> {
     return globalIds.map(id => this.fetcher(id, context))
   }
 }
