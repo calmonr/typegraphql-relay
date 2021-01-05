@@ -1,6 +1,7 @@
-import { Connection, Edge } from 'graphql-relay'
+import { Edge } from 'graphql-relay'
 import { ClassType, Field, ObjectType } from 'type-graphql'
 
+import { Connection } from './connection.interface'
 import { PageInfo } from './page-info.object'
 
 type NodeType<E> = E extends Edge<infer N> ? N : unknown
@@ -18,6 +19,11 @@ export function ConnectionType<E extends Edge<N>, N = NodeType<E>>(
 
     @Field({ description: 'Information to aid in pagination.' })
     readonly pageInfo!: PageInfo
+
+    @Field({
+      description: 'Identifies the count of items in the connection.'
+    })
+    readonly count!: number
   }
 
   return ConnectionClass

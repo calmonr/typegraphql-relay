@@ -1,10 +1,11 @@
 import {
-  Connection,
   ConnectionArguments,
   getOffsetWithDefault,
   offsetToCursor
 } from 'graphql-relay'
 import { Repository } from 'typeorm'
+
+import { Connection } from './connection.interface'
 
 export async function connectionFromRepository<T>(
   args: ConnectionArguments,
@@ -12,14 +13,14 @@ export async function connectionFromRepository<T>(
 ): Promise<Connection<T>> {
   const { before, after, first, last } = args
 
-  const total = await repository.count()
+  const count = await repository.count()
 
   // offsets
-  const beforeOffset = getOffsetWithDefault(before, total)
+  const beforeOffset = getOffsetWithDefault(before, count)
   const afterOffset = getOffsetWithDefault(after, -1)
 
   let startOffset = Math.max(-1, afterOffset) + 1
-  let endOffset = Math.min(beforeOffset, total)
+  let endOffset = Math.min(beforeOffset, count)
 
   if (first) {
     endOffset = Math.min(endOffset, startOffset + first)
@@ -44,7 +45,7 @@ export async function connectionFromRepository<T>(
   // page info
   const { length, 0: firstEdge, [length - 1]: lastEdge } = edges
   const lowerBound = after ? afterOffset + 1 : 0
-  const upperBound = before ? Math.min(beforeOffset, total) : total
+  const upperBound = before ? Math.min(beforeOffset, count) : count
 
   const pageInfo = {
     startCursor: firstEdge ? firstEdge.cursor : null,
@@ -55,6 +56,7 @@ export async function connectionFromRepository<T>(
 
   return {
     edges,
-    pageInfo
+    pageInfo,
+    count
   }
 }

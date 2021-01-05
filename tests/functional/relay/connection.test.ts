@@ -22,6 +22,7 @@ query users($before: String, $after: String, $first: Int, $last: Int) {
       hasPreviousPage
       hasNextPage
     }
+    count
   }
 }
 `
@@ -194,6 +195,41 @@ describe('connection', () => {
             }
           }
         })
+      })
+    })
+  })
+
+  describe('count', () => {
+    test('should return 0', async () => {
+      const result = await graphql({
+        schema,
+        source: USERS_QUERY
+      })
+
+      expect(result.errors).toBeUndefined()
+      expect(result.data).toBeObject()
+      expect(result.data).toMatchObject({
+        users: {
+          count: 0
+        }
+      })
+    })
+
+    test('should return 2', async () => {
+      await repository.save({ name: 'Calmon Ribeiro' })
+      await repository.save({ name: 'Michał Lytek' })
+
+      const result = await graphql({
+        schema,
+        source: USERS_QUERY
+      })
+
+      expect(result.errors).toBeUndefined()
+      expect(result.data).toBeObject()
+      expect(result.data).toMatchObject({
+        users: {
+          count: 2
+        }
       })
     })
   })
