@@ -11,3 +11,5 @@ This is a GraphQL server boilerplate that follows the [Global Object Identificat
 ## WIP
 
 This documentation is being completely rewritten explaining better how to get started. It means that this repository is constantly changing and that is why we don't recommend using it in production until all features have been completed.
+
+You can check the [tests](tests/functional/relay) in the meantime for usage examples.
