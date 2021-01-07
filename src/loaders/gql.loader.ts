@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server-express'
 import { Express } from 'express'
 import { GraphQLSchema } from 'graphql'
 import { buildSchema, BuildSchemaOptions } from 'type-graphql'
-import Container from 'typedi'
+import { Container } from 'typedi'
 import { Connection } from 'typeorm'
 
 import { Context } from '../interfaces/context.interface'

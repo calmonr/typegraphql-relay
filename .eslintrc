@@ -4,11 +4,25 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "rules": {
     "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "groups": ["external", ["parent", "sibling"]],
+        "newlines-between": "always"
+      }
+    ]
   }
 }

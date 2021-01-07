@@ -1,6 +1,7 @@
 /// <reference path="../typings/env.d.ts" />
 
 import 'reflect-metadata'
+
 import consola from 'consola'
 
 import databaseLoader from './loaders/database.loader'
