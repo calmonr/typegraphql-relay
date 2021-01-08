@@ -2,6 +2,8 @@
 
 > Relay-compliant GraphQL server using TypeGraphQL and TypeORM boilerplate.
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6cfac41b809a47a989d674da14d21280)](https://www.codacy.com/gh/calmonr/typegraphql-relay/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=calmonr/typegraphql-relay&amp;utm_campaign=Badge_Grade)
+
 ---
 
 ## Introduction
